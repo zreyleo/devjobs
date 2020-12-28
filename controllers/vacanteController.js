@@ -16,10 +16,25 @@ exports.agregarVacante = (req, res) => {
         if (error) {
             console.log(error);
         }
-    })
-    res.redirect('/')
+        res.redirect(`/vacantes/${vacantesaved.url}`);
+    });
 };
 
-exports.mostrarVacante = (req, res) => {
+exports.mostrarVacante = async (req, res, next) => {
+    const vacante = await Vacante.findOne({ url: req.params.url });
 
+    if (!vacante) return next();
+
+    const { empresa, ubicacion, contrato, salario, descripcion, skills } = vacante;
+
+    res.render('vacante', {
+        titlePage: vacante.titulo,
+        barra: true,
+        empresa,
+        ubicacion, 
+        contrato, 
+        salario,
+        descripcion,
+        skills
+    });
 }
