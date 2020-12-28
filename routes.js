@@ -3,5 +3,8 @@ const vacanteController = require('./controllers/vacanteController')
 
 module.exports = function (app) {
     app.get('/', homeController.mostrarTrabajos);
-    app.get('/vacantes/nueva', vacanteController.formularioNuevaVacante)
+
+    // Vacantes
+    app.get('/vacantes/nueva', vacanteController.formularioNuevaVacante);
+    app.post('/vacantes/nueva', vacanteController.agregarVacante);
 }

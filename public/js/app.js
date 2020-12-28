@@ -19,7 +19,6 @@ function agregarSkills(event) {
             event.target.classList.add('activo')
         }
     }
-    console.log(skills)
     const skillsArray = [...skills];
     document.querySelector('#skills').value = skillsArray;
 }
