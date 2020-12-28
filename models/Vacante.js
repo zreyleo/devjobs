@@ -24,7 +24,7 @@ const vacanteSchema = new mongoose.Schema({
         type: String,
         default: 0
     },
-    constrato: {
+    contrato: {
         type: String,
         trim: true
     },

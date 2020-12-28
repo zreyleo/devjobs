@@ -19,3 +19,7 @@ exports.agregarVacante = (req, res) => {
     })
     res.redirect('/')
 };
+
+exports.mostrarVacante = (req, res) => {
+
+}
