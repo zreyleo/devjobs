@@ -41,11 +41,12 @@ exports.mostrarVacante = async (req, res, next) => {
 }
 
 exports.editarVacante = async (req, res, next) => {
-    const vacante = await Vacante.findOne({ url: req.params.url });
+    const vacante = await Vacante.findOne({ url: req.params.url }).lean();
 
     if (!vacante) return next();
 
     res.render('editar-vacante', {
-        titlePage: `Editar - ${vacante.titulo}`
+        titlePage: `Editar - ${vacante.titulo}`,
+        vacante
     })
 }
