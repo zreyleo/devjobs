@@ -7,6 +7,6 @@ module.exports = function (app) {
     // Vacantes
     app.get('/vacantes/nueva', vacanteController.formularioNuevaVacante);
     app.post('/vacantes/nueva', vacanteController.agregarVacante);
-
-    app.get('/vacantes/:url', vacanteController.mostrarVacante)
+    app.get('/vacantes/:url', vacanteController.mostrarVacante);
+    app.get('/vacantes/editar/:url', vacanteController.editarVacante);
 }

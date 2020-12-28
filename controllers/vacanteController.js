@@ -25,7 +25,7 @@ exports.mostrarVacante = async (req, res, next) => {
 
     if (!vacante) return next();
 
-    const { empresa, ubicacion, contrato, salario, descripcion, skills } = vacante;
+    const { empresa, ubicacion, contrato, salario, descripcion, skills, url } = vacante;
 
     res.render('vacante', {
         titlePage: vacante.titulo,
@@ -35,6 +35,17 @@ exports.mostrarVacante = async (req, res, next) => {
         contrato, 
         salario,
         descripcion,
-        skills
+        skills,
+        url
     });
+}
+
+exports.editarVacante = async (req, res, next) => {
+    const vacante = await Vacante.findOne({ url: req.params.url });
+
+    if (!vacante) return next();
+
+    res.render('editar-vacante', {
+        titlePage: `Editar - ${vacante.titulo}`
+    })
 }
