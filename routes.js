@@ -8,5 +8,6 @@ module.exports = function (app) {
     app.get('/vacantes/nueva', vacanteController.formularioNuevaVacante);
     app.post('/vacantes/nueva', vacanteController.agregarVacante);
     app.get('/vacantes/:url', vacanteController.mostrarVacante);
-    app.get('/vacantes/editar/:url', vacanteController.editarVacante);
+    app.get('/vacantes/editar/:url', vacanteController.formEditarVacante);
+    app.post('/vacantes/editar/:url', vacanteController.editarVacante);
 }
