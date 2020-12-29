@@ -13,5 +13,6 @@ module.exports = function (app) {
     app.post('/vacantes/editar/:url', vacanteController.editarVacante);
 
     // Usuarios
-    app.get('/crear-cuenta', usuarioController.crearCuenta);
+    app.get('/crear-cuenta', usuarioController.formCrearCuenta);
+    app.post('/crear-cuenta', usuarioController.crearCuenta)
 }
