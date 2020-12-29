@@ -1,5 +1,6 @@
 const homeController = require('./controllers/homeController')
 const vacanteController = require('./controllers/vacanteController')
+const usuarioController = require('./controllers/usuarioController')
 
 module.exports = function (app) {
     app.get('/', homeController.mostrarTrabajos);
@@ -10,4 +11,7 @@ module.exports = function (app) {
     app.get('/vacantes/:url', vacanteController.mostrarVacante);
     app.get('/vacantes/editar/:url', vacanteController.formEditarVacante);
     app.post('/vacantes/editar/:url', vacanteController.editarVacante);
+
+    // Usuarios
+    app.get('/crear-cuenta', usuarioController.crearCuenta);
 }
