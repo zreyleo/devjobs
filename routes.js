@@ -14,5 +14,5 @@ module.exports = function (app) {
 
     // Usuarios
     app.get('/crear-cuenta', usuarioController.formCrearCuenta);
-    app.post('/crear-cuenta', usuarioController.crearCuenta)
+    app.post('/crear-cuenta', usuarioController.validarRegistro, usuarioController.crearCuenta)
 }
