@@ -22,11 +22,12 @@ exports.validarRegistro = (req, res, next) => {
 
     if (errores) {
         req.flash('error', errores.map(error => error.msg));
-        return res.render('crear-cuenta', {
+        res.render('crear-cuenta', {
             titlePage: 'Crear Cuenta',
             tagline: 'Comienza a publicar tus vacante gratis, solo debes crear una cuenta.',
             mensajes: req.flash()
-        })
+        });
+        return;
     }
 
     next();

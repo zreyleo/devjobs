@@ -45,7 +45,7 @@ app.use(flash());
 
 // middleware para los mensajes de la aplicacion
 app.use((req, res, next) => {
-    res.locals.mensajes = flash();
+    res.locals.mensajes = req.flash();
     next();
 });
 
