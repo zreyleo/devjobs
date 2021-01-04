@@ -2,7 +2,13 @@ const Usuario = require('../models/Usuario');
 
 exports.formCrearCuenta = (req, res, next) => {
     res.render('crear-cuenta', {
-        titlePage: 'Crear Cuenta',
+        titlePage: 'Crear Cuenta'
+    })
+}
+
+exports.formIniciarSesion = (req, res, next) => {
+    res.render('iniciar-sesion', {
+        titlePage: 'Iniciar Sesión',
         tagline: 'Comienza a publicar tus vacante gratis, solo debes crear una cuenta.'
     })
 }
