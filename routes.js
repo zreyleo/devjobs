@@ -7,11 +7,11 @@ module.exports = function (app) {
     app.get('/', homeController.mostrarTrabajos);
 
     // Vacantes
-    app.get('/vacantes/nueva', vacanteController.formularioNuevaVacante);
-    app.post('/vacantes/nueva', vacanteController.agregarVacante);
+    app.get('/vacantes/nueva', authController.verificarUsuario, vacanteController.formularioNuevaVacante);
+    app.post('/vacantes/nueva', authController.verificarUsuario, vacanteController.agregarVacante);
     app.get('/vacantes/:url', vacanteController.mostrarVacante);
-    app.get('/vacantes/editar/:url', vacanteController.formEditarVacante);
-    app.post('/vacantes/editar/:url', vacanteController.editarVacante);
+    app.get('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.formEditarVacante);
+    app.post('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.editarVacante);
 
     // Usuarios
     app.get('/crear-cuenta', usuarioController.formCrearCuenta);
@@ -20,5 +20,5 @@ module.exports = function (app) {
     app.post('/iniciar-sesion', authController.autenticarUsuario);
 
     // Administracion
-    app.get('/administracion', authController.mostrarPanel)
+    app.get('/administracion', authController.verificarUsuario, authController.mostrarPanel)
 }
