@@ -11,11 +11,16 @@ exports.formularioNuevaVacante = (req, res) => {
 
 exports.agregarVacante = (req, res) => {
     const vacante = new Vacante(req.body);
+
+    vacante.autor = req.user._id;
+
     vacante.skills = req.body.skills.split(',');
+
     vacante.save((error, vacantesaved) => {
         if (error) {
             console.log(error);
         }
+
         res.redirect(`/vacantes/${vacantesaved.url}`);
     });
 };
@@ -31,8 +36,8 @@ exports.mostrarVacante = async (req, res, next) => {
         titlePage: vacante.titulo,
         barra: true,
         empresa,
-        ubicacion, 
-        contrato, 
+        ubicacion,
+        contrato,
         salario,
         descripcion,
         skills,
