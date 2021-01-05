@@ -1,6 +1,7 @@
-const homeController = require('./controllers/homeController')
-const vacanteController = require('./controllers/vacanteController')
-const usuarioController = require('./controllers/usuarioController')
+const homeController = require('./controllers/homeController');
+const vacanteController = require('./controllers/vacanteController');
+const usuarioController = require('./controllers/usuarioController');
+const authController = require('./controllers/authController');
 
 module.exports = function (app) {
     app.get('/', homeController.mostrarTrabajos);
@@ -16,4 +17,5 @@ module.exports = function (app) {
     app.get('/crear-cuenta', usuarioController.formCrearCuenta);
     app.post('/crear-cuenta', usuarioController.validarRegistro, usuarioController.crearCuenta);
     app.get('/iniciar-sesion', usuarioController.formIniciarSesion);
+    app.post('/iniciar-sesion', authController.autenticarUsuario);
 }

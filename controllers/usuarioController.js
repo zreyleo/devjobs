@@ -22,7 +22,7 @@ exports.validarRegistro = (req, res, next) => {
     req.checkBody('nombre', 'El Nombre es obligatorio').notEmpty();
     req.checkBody('email', 'El Email debe ser valido').isEmail();
     req.checkBody('password', 'El password no debe ir vacio').notEmpty();
-    req.checkBody('confirmar', 'El password no esta confirmado correctamente.').equals(req.body.password);
+    req.checkBody('confirmar', 'El password no esta confirmado correctamente').equals(req.body.password);
 
     const errores = req.validationErrors();
 

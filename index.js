@@ -13,6 +13,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo')(session);
 
+const passport = require('./config/passport');
 const routes = require('./routes');
 
 const app = express();
@@ -40,6 +41,9 @@ app.use(session({
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(flash());
 
