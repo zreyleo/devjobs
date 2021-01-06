@@ -20,5 +20,8 @@ module.exports = function (app) {
     app.post('/iniciar-sesion', authController.autenticarUsuario);
 
     // Administracion
-    app.get('/administracion', authController.verificarUsuario, authController.mostrarPanel)
+    app.get('/administracion', authController.verificarUsuario, authController.mostrarPanel);
+
+    app.get('/editar-perfil', authController.verificarUsuario, usuarioController.formEditarPerfil)
+    app.post('/editar-perfil', authController.verificarUsuario, usuarioController.editarPerfil)
 }

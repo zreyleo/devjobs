@@ -51,3 +51,23 @@ exports.crearCuenta = async (req, res, next) => {
     }
 }
 
+exports.formEditarPerfil = (req, res) => {
+    const { nombre, email } = req.user;
+    res.render('editar-perfil', {
+        titlePage: 'Editar Perfil',
+        nombre,
+        email
+    })
+}
+
+exports.editarPerfil = async (req, res) => {
+    const usuario = await Usuario.findById(req.user._id);
+    usuario.nombre = req.body.nombre;
+    usuario.email = req.body.email;
+    if (req.body.password) {
+        usuario.password = req.body.password;
+    }
+    await usuario.save();
+    req.flash('correcto', 'Cambios guardados');
+    res.redirect('/administracion');
+}
