@@ -8,10 +8,10 @@ module.exports = function (app) {
 
     // Vacantes
     app.get('/vacantes/nueva', authController.verificarUsuario, vacanteController.formularioNuevaVacante);
-    app.post('/vacantes/nueva', authController.verificarUsuario, vacanteController.agregarVacante);
+    app.post('/vacantes/nueva', authController.verificarUsuario, vacanteController.validarVacante, vacanteController.agregarVacante);
     app.get('/vacantes/:url', vacanteController.mostrarVacante);
     app.get('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.formEditarVacante);
-    app.post('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.editarVacante);
+    app.post('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.validarVacante, vacanteController.editarVacante);
 
     // Usuarios
     app.get('/crear-cuenta', usuarioController.formCrearCuenta);
