@@ -8,6 +8,12 @@ exports.autenticarUsuario = passport.authenticate('local', {
     badRequestMessage: 'Ambos campos son obligatorios'
 });
 
+exports.cerrarSesion = (req, res) => {
+    req.logout();
+    req.flash('correcto', 'Cerraste Sesión')
+    return res.redirect('/iniciar-sesion');
+}
+
 // Revisar si el usuario esta autenticado
 exports.verificarUsuario = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -23,6 +29,8 @@ exports.mostrarPanel = async (req, res) => {
     res.render('administracion', {
         titlePage: 'Panel de Administración',
         tagline: 'Crea y Administra tus vacantes desde aquí',
+        cerrarSesion: true,
+        nombre: req.user.nombre,
         vacantes
     })
 }

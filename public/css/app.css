@@ -75,6 +75,7 @@ h3 {
 .editar-btn {
     margin-top: 4rem;
     text-align: center;
+    display: block;
 }
 
 /** Header **/

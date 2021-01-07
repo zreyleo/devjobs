@@ -56,7 +56,9 @@ exports.formEditarPerfil = (req, res) => {
     res.render('editar-perfil', {
         titlePage: 'Editar Perfil',
         nombre,
-        email
+        email,
+        cerrarSesion: true,
+        nombre: req.user.nombre,
     })
 }
 

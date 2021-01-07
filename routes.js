@@ -18,6 +18,7 @@ module.exports = function (app) {
     app.post('/crear-cuenta', usuarioController.validarRegistro, usuarioController.crearCuenta);
     app.get('/iniciar-sesion', usuarioController.formIniciarSesion);
     app.post('/iniciar-sesion', authController.autenticarUsuario);
+    app.get('/cerrar-sesion', authController.verificarUsuario, authController.cerrarSesion)
 
     // Administracion
     app.get('/administracion', authController.verificarUsuario, authController.mostrarPanel);
