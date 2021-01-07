@@ -12,6 +12,7 @@ module.exports = function (app) {
     app.get('/vacantes/:url', vacanteController.mostrarVacante);
     app.get('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.formEditarVacante);
     app.post('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.validarVacante, vacanteController.editarVacante);
+    app.delete('/vacantes/eliminar/:id', vacanteController.eliminarVacante)
 
     // Usuarios
     app.get('/crear-cuenta', usuarioController.formCrearCuenta);

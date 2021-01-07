@@ -1,3 +1,6 @@
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 document.addEventListener('DOMContentLoaded', () => {
     const skills = document.querySelector('.lista-conocimientos');
 
@@ -13,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // una vez que estamos en editar, llamar funcion
         skillsSeleccionados();
+    }
+
+    const vacantesListado = document.querySelector('.panel-administracion');
+
+    if (vacantesListado) {
+        vacantesListado.addEventListener('click', accionesListado);
     }
 });
 
@@ -54,4 +63,49 @@ function limpiarAlertas() {
             clearInterval(interval);
         }
     }, 2000);
+}
+
+// eliminar vacantes
+function accionesListado(event) {
+    event.preventDefault();
+
+    if (event.target.dataset.eliminar) {
+        // eliminar vacante
+
+        Swal.fire({
+            title: '¿Estás segur@?',
+            text: "¡Esta acción no es reversible!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, ¡Eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const url = `${location.origin}/vacantes/eliminar/${event.target.dataset.eliminar}`
+
+                axios.delete(url, { params: { url } }).then(respuesta => {
+                    if (respuesta.status == 200) {
+                        Swal.fire(
+                            '¡Eliminada!',
+                            respuesta.data,
+                            'success'
+                        )
+
+                        // eliminar del DOM
+                        event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement)
+                    }
+                })
+            }
+        }).catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hubo un error',
+                text: 'No se pudo eliminar'
+            })
+        })
+    } else if (event.target.tagName == 'A') {
+        window.location.href = event.target.href;
+    }
 }
