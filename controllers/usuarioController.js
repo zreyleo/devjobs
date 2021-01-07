@@ -1,4 +1,47 @@
+const multer = require('multer');
+const shortid = require('shortid');
 const Usuario = require('../models/Usuario');
+
+const configuracionMulter = {
+    storage: fileStorage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, __dirname + '../../public/uploads/perfiles');
+        },
+        filename: (req, file, cb) => {
+            const extension = file.mimetype.split('/')[1];
+            cb(null, `${shortid.generate()}.${extension}`)
+        }
+    }),
+    fileFilter(req, file, cb) {
+        if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+            cb(null, true);
+        } else {
+            cb(null, false);
+        }
+    },
+    limits: { fileSize: 1024 * 1024 }
+}
+
+const upload = multer(configuracionMulter).single('imagen');
+
+exports.editarPerfil = async (req, res) => {
+    const usuario = await Usuario.findById(req.user._id);
+    
+    usuario.nombre = req.body.nombre;
+    usuario.email = req.body.email;
+    
+    if (req.body.password) {
+        usuario.password = req.body.password;
+    }
+
+    if (req.file) {
+        usuario.imagen = req.file.filename;
+    }
+
+    await usuario.save();
+    req.flash('correcto', 'Cambios guardados');
+    res.redirect('/administracion');
+}
 
 exports.formCrearCuenta = (req, res, next) => {
     res.render('crear-cuenta', {
@@ -61,20 +104,14 @@ exports.formEditarPerfil = (req, res) => {
     })
 }
 
-exports.editarPerfil = async (req, res) => {
-    const usuario = await Usuario.findById(req.user._id);
-    usuario.nombre = req.body.nombre;
-    usuario.email = req.body.email;
-    if (req.body.password) {
-        usuario.password = req.body.password;
-    }
-    await usuario.save();
-    req.flash('correcto', 'Cambios guardados');
-    res.redirect('/administracion');
-}
-
 exports.subirImagen = (req, res, next) => {
+    upload(req, res, function (error) {
+        if (error instanceof multer.MulterError) {
+            return next();
+        }
+    });
 
+    next();
 }
 
 exports.validarPerfil = (req, res, next) => {
@@ -89,7 +126,7 @@ exports.validarPerfil = (req, res, next) => {
 
     req.checkBody('nombre', 'Debes tener un nombre').notEmpty();
     req.checkBody('email', 'Debes tener un email').notEmpty();
-    
+
     const errores = req.validationErrors();
 
     if (errores) {
