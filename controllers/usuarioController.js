@@ -73,6 +73,10 @@ exports.editarPerfil = async (req, res) => {
     res.redirect('/administracion');
 }
 
+exports.subirImagen = (req, res, next) => {
+
+}
+
 exports.validarPerfil = (req, res, next) => {
     const { nombre, email } = req.user;
 
