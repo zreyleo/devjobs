@@ -58,7 +58,6 @@ exports.formEditarPerfil = (req, res) => {
         nombre,
         email,
         cerrarSesion: true,
-        nombre: req.user.nombre,
     })
 }
 
@@ -72,4 +71,35 @@ exports.editarPerfil = async (req, res) => {
     await usuario.save();
     req.flash('correcto', 'Cambios guardados');
     res.redirect('/administracion');
+}
+
+exports.validarPerfil = (req, res, next) => {
+    const { nombre, email } = req.user;
+
+    req.sanitizeBody('nombre').escape();
+    req.sanitizeBody('email').escape();
+
+    if (req.body.password) {
+        req.sanitizeBody('password').escape();
+    }
+
+    req.checkBody('nombre', 'Debes tener un nombre').notEmpty();
+    req.checkBody('email', 'Debes tener un email').notEmpty();
+    
+    const errores = req.validationErrors();
+
+    if (errores) {
+        console.log('hola')
+        req.flash('error', errores.map(error => error.msg));
+
+        return res.render('editar-perfil', {
+            titlePage: 'Editar Perfil',
+            nombre,
+            email,
+            cerrarSesion: true,
+            mensajes: req.flash()
+        })
+    }
+
+    next();
 }
