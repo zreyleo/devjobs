@@ -35,3 +35,18 @@
         </ul>
     </aside>
 </div>
+
+<div class="contenedor datos-reclutador">
+    <div class="enviar-datos">
+
+    </div>
+    <div class="info-reclutador">
+        <h2>Informaci&oacute;n del Reclutador</h2>
+        {{#if autor.nombre}}
+            <p>{{autor.nombre}}</p>
+        {{/if}}
+        {{#if autor.imagen}}
+            <img src="/uploads/perfiles/{{autor.imagen}}" />
+        {{/if}}
+    </div>
+</div>

@@ -3,6 +3,7 @@ const shortid = require('shortid');
 const Usuario = require('../models/Usuario');
 
 const configuracionMulter = {
+    limits: { fileSize: 1024 * 100 },
     storage: fileStorage = multer.diskStorage({
         destination: (req, file, cb) => {
             cb(null, __dirname + '../../public/uploads/perfiles');
@@ -16,10 +17,9 @@ const configuracionMulter = {
         if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
             cb(null, true);
         } else {
-            cb(null, false);
+            cb(new Error('Formato no admitido'), false);
         }
-    },
-    limits: { fileSize: 1024 * 1024 }
+    }
 }
 
 const upload = multer(configuracionMulter).single('imagen');
@@ -95,23 +95,33 @@ exports.crearCuenta = async (req, res, next) => {
 }
 
 exports.formEditarPerfil = (req, res) => {
-    const { nombre, email } = req.user;
+    const { nombre, email, imagen } = req.user;
     res.render('editar-perfil', {
         titlePage: 'Editar Perfil',
         nombre,
         email,
+        imagen,
         cerrarSesion: true,
     })
 }
 
 exports.subirImagen = (req, res, next) => {
     upload(req, res, function (error) {
-        if (error instanceof multer.MulterError) {
+        if (error) {
+            if (error instanceof multer.MulterError) {
+                if(error.code == 'LIMIT_FILE_SIZE') {
+                    req.flash('error', 'El archivo excede el limite de 100KB');
+                } else {
+                    req.flash('error', error.message);
+                }
+            } else {
+                req.flash('error', error.message);
+            }
+            return res.redirect('/administracion')
+        } else {
             return next();
         }
     });
-
-    next();
 }
 
 exports.validarPerfil = (req, res, next) => {

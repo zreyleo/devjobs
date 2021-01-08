@@ -252,9 +252,9 @@ h3 {
     color: white;
     font-size: 1.8rem;
 }
-.enviar-datos form {
+/* .enviar-datos form {
 
-}
+} */
 
 /** Iniciar Sesión **/
 .default-form {
@@ -415,7 +415,7 @@ p.candidatos {
     display: flex;
 }
 .cerrar-sesion img {
-        width: 80px;
+    width: 80px;
 }
 .botones {
     display: flex;

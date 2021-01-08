@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
-
-const Vacante = mongoose.model('Vacante');
+const Vacante = require('../models/Vacante');
+const Usuario = require('../models/Usuario');
 
 exports.formularioNuevaVacante = (req, res) => {
     res.render('nueva-vacante', {
@@ -30,7 +29,10 @@ exports.agregarVacante = (req, res) => {
 exports.mostrarVacante = async (req, res, next) => {
     const vacante = await Vacante.findOne({ url: req.params.url });
 
+    const autor = await Usuario.findById(vacante.autor).lean();
+
     if (!vacante) return next();
+    console.log(autor);
 
     const { empresa, ubicacion, contrato, salario, descripcion, skills, url } = vacante;
 
@@ -43,7 +45,8 @@ exports.mostrarVacante = async (req, res, next) => {
         salario,
         descripcion,
         skills,
-        url
+        url,
+        autor
     });
 }
 
