@@ -10,9 +10,13 @@ module.exports = function (app) {
     app.get('/vacantes/nueva', authController.verificarUsuario, vacanteController.formularioNuevaVacante);
     app.post('/vacantes/nueva', authController.verificarUsuario, vacanteController.validarVacante, vacanteController.agregarVacante);
     app.get('/vacantes/:url', vacanteController.mostrarVacante);
+    app.post('/vacantes/:url', vacanteController.subirCV, vacanteController.contactar);
     app.get('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.formEditarVacante);
     app.post('/vacantes/editar/:url', authController.verificarUsuario, vacanteController.validarVacante, vacanteController.editarVacante);
-    app.delete('/vacantes/eliminar/:id', vacanteController.eliminarVacante)
+    app.delete('/vacantes/eliminar/:id', vacanteController.eliminarVacante);
+
+    // candidatos
+    app.get('/candidatos/:id', authController.verificarUsuario, vacanteController.mostrarCandidatos)
 
     // Usuarios
     app.get('/crear-cuenta', usuarioController.formCrearCuenta);
@@ -31,5 +35,7 @@ module.exports = function (app) {
         // usuarioController.validarPerfil,
         usuarioController.subirImagen,
         usuarioController.editarPerfil
-    )
+    );
+
+    
 }

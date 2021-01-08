@@ -55,6 +55,9 @@ app.use((req, res, next) => {
 
 routes(app);
 
-app.listen(process.env.PORT, () => {
+const host = '0.0.0.0';
+const port = process.env.PORT
+
+app.listen(port, host, () => {
     console.log('Escuchando el puerto ' + process.env.PORT);
 });
