@@ -1,6 +1,3 @@
-Se tiene que crear las siguientes rutas desde directorio raiz del proyecto
+### Preparacion
 
-```/public/uploads/perfiles```
-
-```/public/uploads/cv```
-
+Se necesita crear un archivo ```.env``` en directorio raiz del proyecto, el archivo ```.env.sample```

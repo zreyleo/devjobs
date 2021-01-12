@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./index.js",
-    "desarrollor": "concurrently \"npm run dev\" \"npm run watch\"",
+    "desarrollo": "concurrently \"npm run dev\" \"npm run watch\"",
     "start": "node ./index.js",
     "watch": "webpack -w --mode development"
   },
@@ -23,8 +23,11 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "express-validator": "^5.3.1",
+    "http-errors": "^1.7.2",
     "mongoose": "^5.11.8",
     "multer": "^1.4.1",
+    "nodemailer": "^5.1.1",
+    "nodemailer-express-handlebars": "^3.0.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "shortid": "^2.2.16",

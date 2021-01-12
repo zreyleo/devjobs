@@ -23,12 +23,17 @@ module.exports = function (app) {
     app.post('/crear-cuenta', usuarioController.validarRegistro, usuarioController.crearCuenta);
     app.get('/iniciar-sesion', usuarioController.formIniciarSesion);
     app.post('/iniciar-sesion', authController.autenticarUsuario);
-    app.get('/cerrar-sesion', authController.verificarUsuario, authController.cerrarSesion)
+    app.get('/cerrar-sesion', authController.verificarUsuario, authController.cerrarSesion);
+    app.get('/restablecer-password', authController.formRestablecerPassword);
+    app.post('/restablecer-password', authController.enviarToken);
+    app.get('/restablecer-password/:token', authController.restablecerPassword);
+    app.post('/restablecer-password/:token', authController.guardarPassword);
+
 
     // Administracion
     app.get('/administracion', authController.verificarUsuario, authController.mostrarPanel);
 
-    app.get('/editar-perfil', authController.verificarUsuario, usuarioController.formEditarPerfil)
+    app.get('/editar-perfil', authController.verificarUsuario, usuarioController.formEditarPerfil);
     app.post(
         '/editar-perfil', 
         authController.verificarUsuario,

@@ -6,6 +6,7 @@ require('./config/db');
 const path = require('path');
 const express = require('express');
 const expressValidator = require('express-validator');
+const createErrors = require('http-errors');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const exphbs = require('express-handlebars');
@@ -54,6 +55,14 @@ app.use((req, res, next) => {
 });
 
 routes(app);
+
+app.use((req, res, next) => {
+    next(createErrors(404, 'No encontrado'))
+})
+
+app.use((error, req, res, next) => {
+    res.locals.mensajes = error.message;
+})
 
 const host = '0.0.0.0';
 const port = process.env.PORT
