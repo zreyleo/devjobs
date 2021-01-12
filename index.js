@@ -61,7 +61,8 @@ app.use((req, res, next) => {
 })
 
 app.use((error, req, res, next) => {
-    res.locals.mensajes = error.message;
+    res.locals.mensaje = error.message;
+    res.render('error');
 })
 
 const host = '0.0.0.0';
