@@ -29,6 +29,8 @@ module.exports = function (app) {
     app.get('/restablecer-password/:token', authController.restablecerPassword);
     app.post('/restablecer-password/:token', authController.guardarPassword);
 
+    app.post('/buscador', vacanteController.buscarVacantes);
+
 
     // Administracion
     app.get('/administracion', authController.verificarUsuario, authController.mostrarPanel);

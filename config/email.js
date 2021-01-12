@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 module.exports = {
-    user: '14ff3247f59ba2',
-    pass: 'de4d0aac16e6f9',
-    host: 'smtp.mailtrap.io',
-    port: '2525'
+    user: process.env.MAILTRAP_USER,
+    pass: process.env.MAILTRAP_PASS,
+    host: process.env.MAILTRAP_HOST,
+    port: process.env.MAILTRAP_PORT
 }
